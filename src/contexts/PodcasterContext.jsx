@@ -5,9 +5,16 @@ import {
   useReducer,
   useState,
 } from "react";
+import { isOutdated } from "../helpers/dateUtils";
 
 const BASE_URL = "https://itunes.apple.com/";
 const CORS_PROXY = "https://api.allorigins.win/get?url=";
+
+//this will be used for localstorage.
+//No hauria d'estar aquí, posar-ho on toca...
+const allPodcastKey = "allpodcasts";
+
+const currentDate = new Date().getTime();
 
 const PodcasterContext = createContext();
 
@@ -87,38 +94,73 @@ function PodcastProvider({ children }) {
     async function fetchPodcasts() {
       dispatch({ type: "loading" });
 
-      //si ja està enmagatzemat en caché.
+      if (
+        !localStorage.getItem(allPodcastKey) ||
+        isOutdated(JSON.parse(localStorage.getItem(allPodcastKey)).date)
+      ) {
+        try {
+          //Recordem de posar-ho a 100 de nou...
 
-      try {
-        //Recordem de posar-ho a 100 de nou...
-        const res = await fetch(
-          `${BASE_URL}/us/rss/toppodcasts/limit=5/genre=1310/json`
-        );
-        const data = await res.json();
-        await data.feed.entry.forEach((element) => {
-          let podcast2 = {
-            id: element.id.attributes["im:id"],
-            img: element["im:image"][2].label,
-            name: element["im:name"].label,
-            author: element["im:artist"].label,
-            summary: element.summary
-              ? element.summary.label
-              : "No summary info",
-          };
-          podcasts.push(podcast2);
-        });
+          console.log("data from the API...");
 
-        dispatch({ type: "100podcasts/loaded", payload: podcasts });
-      } catch {
-        dispatch({
-          type: "rejected",
-          payload:
-            "There was an error loading those 100 podcasts... sorry man!",
-        });
+          const res = await fetch(
+            `${BASE_URL}/us/rss/toppodcasts/limit=5/genre=1310/json`
+          );
+          const data = await res.json();
+          await data.feed.entry.forEach((element) => {
+            let podcast2 = {
+              id: element.id.attributes["im:id"],
+              img: element["im:image"][2].label,
+              name: element["im:name"].label,
+              author: element["im:artist"].label,
+              summary: element.summary
+                ? element.summary.label
+                : "No summary info",
+            };
+            podcasts.push(podcast2);
+          });
+
+          saveDataToLocalStorage(allPodcastKey, podcasts);
+
+          dispatch({ type: "100podcasts/loaded", payload: podcasts });
+        } catch {
+          dispatch({
+            type: "rejected",
+            payload:
+              "There was an error loading those 100 podcasts... sorry man!",
+          });
+        }
+      } else {
+        getDataFromLocalStorage(allPodcastKey, "100podcasts/loaded");
       }
     }
+
     fetchPodcasts();
   }, []);
+
+  function saveDataToLocalStorage(localStorageName, storage) {
+    try {
+      console.log("save data to localstorage", localStorageName, storage);
+
+      localStorage.removeItem(localStorageName); //we force to delete it.
+      let dataToStorage = { value: storage, date: currentDate };
+      localStorage.setItem(localStorageName, JSON.stringify(dataToStorage));
+    } catch {
+      dispatch({
+        type: "rejected",
+        payload: "error saving data in localstorage",
+      });
+    }
+  }
+  function getDataFromLocalStorage(localStorageName, dispatchAction) {
+    console.log(
+      "data get from localstorage!",
+      localStorageName,
+      dispatchAction
+    );
+    const getData = JSON.parse(localStorage.getItem(allPodcastKey)).value;
+    dispatch({ type: dispatchAction, payload: getData });
+  }
 
   async function getPodcast(id) {
     dispatch({ type: "loading" });
@@ -128,8 +170,6 @@ function PodcastProvider({ children }) {
   }
 
   async function getEpisode(id) {
-    console.log("entro a getEpisode function");
-
     console.log("episodes found in getEpisodes:", episodes);
 
     dispatch({ type: "loading" });
@@ -143,44 +183,54 @@ function PodcastProvider({ children }) {
   async function getEpisodes(id) {
     console.log("id", id);
 
+    const podcastkey = "podcast" + id;
+
     dispatch({ type: "loading" });
 
     const podcastId = id.toString();
     //const podcastId = "1535809341";
 
-    const url = `https://itunes.apple.com/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=3`;
-    try {
-      const res = await fetch(
-        `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`
-      );
+    if (
+      !localStorage.getItem(podcastkey) ||
+      isOutdated(JSON.parse(localStorage.getItem(podcastkey)).date)
+    ) {
+      const url = `https://itunes.apple.com/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=3`;
+      try {
+        const res = await fetch(
+          `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`
+        );
 
-      const data = await res.json();
-      const parsedResult_datacontents = await JSON.parse(data.contents);
-      console.log("parsedResult_datacontents", parsedResult_datacontents);
+        const data = await res.json();
+        const parsedResult_datacontents = await JSON.parse(data.contents);
+        console.log("parsedResult_datacontents", parsedResult_datacontents);
 
-      episodes.splice(0, episodes.length); //we force to delete everything...
+        episodes.splice(0, episodes.length); //we force to delete everything...
+        await parsedResult_datacontents.results.forEach((element, index) => {
+          if (index >= 1) {
+            let episodes2 = {
+              id: element.trackId,
+              title: element.trackName,
+              description: element.description,
+              record: element.episodeUrl,
+              duration: element.trackTimeMillis,
+              date: element.releaseDate,
+            };
+            episodes.push(episodes2);
+          }
+          saveDataToLocalStorage(podcastkey, episodes);
+        });
+        console.log("episodes found", episodes);
 
-      await parsedResult_datacontents.results.forEach((element, index) => {
-        if (index >= 1) {
-          let episodes2 = {
-            id: element.trackId,
-            title: element.trackName,
-            description: element.description,
-            record: element.episodeUrl,
-            duration: element.trackTimeMillis,
-            date: element.releaseDate,
-          };
-          episodes.push(episodes2);
-        }
-      });
-      console.log("episodes found", episodes);
-
-      dispatch({ type: "episodes/loaded", payload: episodes });
-    } catch {
-      dispatch({
-        type: "rejected",
-        payload: "There was an error loading the episodes from the podcast...",
-      });
+        dispatch({ type: "episodes/loaded", payload: episodes });
+      } catch {
+        dispatch({
+          type: "rejected",
+          payload:
+            "There was an error loading the episodes from the podcast...",
+        });
+      }
+    } else {
+      getDataFromLocalStorage(podcastkey, "episodes/loaded");
     }
   }
 
