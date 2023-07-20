@@ -5,7 +5,7 @@ import Podcast from "./components/Podcast";
 import PodcatList from "./components/PodcatList";
 import Episode from "./components/Episode";
 import PageNotFound from "./pages/PageNotFound";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function App() {
   return (
@@ -14,10 +14,11 @@ function App() {
         {/* a fer! els podcast list/podcas/episode haurien d'estar englobats en el principal. */}
         <Routes>
           <Route index element={<HomePage />} />
-          <Route index element={<Navigate replace to="podcast" />} />
-          <Route path="podcast" element={<PodcatList />} />
-          <Route path="podcast/:id" element={<Podcast />} />
-          <Route path="podcast/:id/episode/:id" element={<Episode />} />
+          {/* <Route index element={<Navigate replace to="podcast" />} /> */}
+          {/* <Route path="podcast" element={<PodcatList />} /> */}
+
+          <Route path="/podcast/:potcastId" element={<Podcast />} />
+          <Route path="podcast/:id/episode/:episodeid" element={<Episode />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
