@@ -8,18 +8,26 @@ function PodcatList() {
   const { podcasts, isLoading } = usePodcasts();
   console.log("podcasts", podcasts);
 
-  if (!podcasts.length) return <h1>no podcasts found...</h1>;
+  if (!podcasts.length && isLoading) return <h1>no podcasts found...</h1>;
 
   return (
-    <>
-      <Results />
-      <SearchPodcasts />
-      <ul className={styles.container}>
-        {podcasts.map((podcast) => (
-          <PodcastItem podcast={podcast} key={podcast.id} />
-        ))}
-      </ul>
-    </>
+    <div className={styles.container}>
+      <div className={styles.resultsSearchContainer}>
+        <div className={styles.results}>
+          <Results />
+        </div>
+        <div className={styles.searchContainer}>
+          <SearchPodcasts />
+        </div>
+      </div>
+      <div>
+        <ul>
+          {podcasts.map((podcast) => (
+            <PodcastItem podcast={podcast} key={podcast.id} />
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
 

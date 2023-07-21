@@ -15,13 +15,14 @@ function EpisodeRecord() {
 
   //   <source src={currentEpisode[0].record} type="audio/mpeg" />
 
-  //   console.log(currentEpisode[0].record);
+  // console.log("currentEpisode[0].record is:", currentEpisode[0].record);
 
   return (
     <div>
       {currentEpisode[0] && (
         <>
           <h1>{currentEpisode[0].title}</h1>
+          <h2>{currentEpisode[0].record}</h2>
           <p>Descripción del episodio</p>
           <audio controls>
             <source src={currentEpisode[0].record} type="audio/mpeg" />

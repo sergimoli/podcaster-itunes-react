@@ -1,31 +1,17 @@
-/* Estilos para la imagen redondeada */
-img {
-  border-radius: 50%;
-}
-
-/* Estilos para el 'name' en negrita y en mayúsculas */
-h3:nth-of-type(3) {
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-/* Estilos para el 'author' en gris claro */
-h3:nth-of-type(4) {
-  color: lightgray;
-}
-
-/* Estilos para mostrar 4 imágenes por fila */
-/* AQUEST posar-ho en un altre css! */
-ul {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+/* PodcastItem.module.css */
 
 .li {
-  width: 25%; /* Ajusta el ancho según tus necesidades */
-  padding: 10px;
-  box-sizing: border-box;
+  text-align: center;
+  border: 1px solid #ddd; /* Borde gris para separar los elementos */
+  border-radius: 5px;
+  background-color: #f9f9f9; /* Color de fondo gris claro */
+}
+
+.link {
+  text-decoration: none;
+  color: #333; /* Color del texto */
+}
+
+h3 {
+  margin: 5px 0;
 }

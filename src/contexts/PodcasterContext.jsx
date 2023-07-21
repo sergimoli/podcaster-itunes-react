@@ -25,6 +25,7 @@ const inititalState = {
   error: "",
   episodes: [],
   currentEpisode: {},
+  trackCount: 0,
 };
 
 function reducer(state, action) {
@@ -61,6 +62,13 @@ function reducer(state, action) {
         isLoading: false,
         currentEpisode: action.payload,
       };
+
+    case "episodes/trackcount":
+      return {
+        ...state,
+        isLoading: false,
+        trackCount: action.payload,
+      };
     case "rejected":
       return {
         ...state,
@@ -75,7 +83,15 @@ function reducer(state, action) {
 
 function PodcastProvider({ children }) {
   const [
-    { podcasts, isLoading, currentPodcast, error, episodes, currentEpisode },
+    {
+      podcasts,
+      isLoading,
+      currentPodcast,
+      error,
+      episodes,
+      currentEpisode,
+      trackCount,
+    },
     dispatch,
   ] = useReducer(reducer, inititalState);
 
@@ -104,7 +120,7 @@ function PodcastProvider({ children }) {
           console.log("data from the API...");
 
           const res = await fetch(
-            `${BASE_URL}/us/rss/toppodcasts/limit=5/genre=1310/json`
+            `${BASE_URL}/us/rss/toppodcasts/limit=7/genre=1310/json`
           );
           const data = await res.json();
           await data.feed.entry.forEach((element) => {
@@ -138,12 +154,16 @@ function PodcastProvider({ children }) {
     fetchPodcasts();
   }, []);
 
-  function saveDataToLocalStorage(localStorageName, storage) {
+  async function saveDataToLocalStorage(localStorageName, storage, trackCount) {
     try {
       console.log("save data to localstorage", localStorageName, storage);
 
       localStorage.removeItem(localStorageName); //we force to delete it.
-      let dataToStorage = { value: storage, date: currentDate };
+      let dataToStorage = {
+        value: storage,
+        date: currentDate,
+        trackCount: trackCount,
+      };
       localStorage.setItem(localStorageName, JSON.stringify(dataToStorage));
     } catch {
       dispatch({
@@ -152,13 +172,14 @@ function PodcastProvider({ children }) {
       });
     }
   }
-  function getDataFromLocalStorage(localStorageName, dispatchAction) {
+  async function getDataFromLocalStorage(localStorageName, dispatchAction) {
     console.log(
       "data get from localstorage!",
       localStorageName,
       dispatchAction
     );
-    const getData = JSON.parse(localStorage.getItem(allPodcastKey)).value;
+    const getData = await JSON.parse(localStorage.getItem(localStorageName))
+      .value;
     dispatch({ type: dispatchAction, payload: getData });
   }
 
@@ -201,6 +222,7 @@ function PodcastProvider({ children }) {
         );
 
         const data = await res.json();
+        let trackCount = 0;
         const parsedResult_datacontents = await JSON.parse(data.contents);
         console.log("parsedResult_datacontents", parsedResult_datacontents);
 
@@ -216,10 +238,14 @@ function PodcastProvider({ children }) {
               date: element.releaseDate,
             };
             episodes.push(episodes2);
+          } else {
+            trackCount = element.trackCount;
           }
-          saveDataToLocalStorage(podcastkey, episodes);
+          // saveDataToLocalStorage(podcastkey, episodes);
         });
-        console.log("episodes found", episodes);
+        await saveDataToLocalStorage(podcastkey, episodes, trackCount);
+        console.log("episodes saved in localstorage", episodes);
+        console.log("trackount is: ", trackCount);
 
         dispatch({ type: "episodes/loaded", payload: episodes });
       } catch {
@@ -230,7 +256,24 @@ function PodcastProvider({ children }) {
         });
       }
     } else {
-      getDataFromLocalStorage(podcastkey, "episodes/loaded");
+      await getDataFromLocalStorage(podcastkey, "episodes/loaded");
+    }
+  }
+
+  async function getTrackCount(id) {
+    dispatch({ type: "loading" });
+    console.log("aquest es el id:", id);
+    try {
+      const podcastkey = "podcast" + id;
+      const trackCount = await JSON.parse(localStorage.getItem(podcastkey))
+        .trackCount;
+      console.log("entro a veure quants tracks tinc, collons", trackCount);
+      dispatch({ type: "episodes/trackcount", payload: trackCount });
+    } catch {
+      dispatch({
+        type: "rejected",
+        payload: "there was an error getting the track",
+      });
     }
   }
 
@@ -245,6 +288,8 @@ function PodcastProvider({ children }) {
         getPodcast,
         getEpisodes,
         getEpisode,
+        getTrackCount,
+        trackCount,
         searchQuery,
         episodes,
         setSearchQuery,

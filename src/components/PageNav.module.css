@@ -1,0 +1,15 @@
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #beb8ba; /* Color de fondo azul */
+  padding: 10px 20px; /* Ajusta el espaciado según tus necesidades */
+}
+
+.navLeft {
+  flex: 1; /* Para ocupar el espacio disponible y alinear a la izquierda */
+}
+
+.navRight {
+  margin-left: 10px; /* Espacio entre el texto y el spinner */
+}

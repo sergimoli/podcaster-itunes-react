@@ -1,18 +1,22 @@
 import { Link } from "react-router-dom";
 import styles from "./PageNav.module.css";
 import Spinner from "./Spinner";
+import { usePodcasts } from "../contexts/PodcasterContext";
 function PageNav() {
+  const { isLoading } = usePodcasts();
+
   return (
-    <>
-      <div>
+    <div className={styles.navContainer}>
+      <div className={styles.navLeft}>
         <Link to="/">
           <span className={styles.nav}>Podcaster</span>
         </Link>
       </div>
-      <div>
+      <div className={styles.navRight}>
+        {/* {isLoading && <Spinner />} */}
         <Spinner />
       </div>
-    </>
+    </div>
   );
 }
 

@@ -1,0 +1,19 @@
+.searchContainer {
+  display: flex;
+  align-items: center;
+  background-color: #fff; /* Color de fondo blanco */
+  border: 1px solid #007bff; /* Borde azul */
+  border-radius: 5px; /* Borde redondeado */
+  padding: 5px 10px; /* Ajusta el espaciado según tus necesidades */
+}
+
+.searchInput {
+  border: none;
+  outline: none;
+  flex: 1; /* Ocupar todo el espacio disponible */
+  margin-left: 5px; /* Espacio entre el icono y el input */
+}
+
+.searchIcon {
+  color: #007bff; /* Color azul del icono */
+}

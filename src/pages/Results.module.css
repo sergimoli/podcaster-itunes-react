@@ -1,0 +1,9 @@
+.resultSquare {
+  width: 30px; /* Ancho del cuadro azul */
+  height: 30px; /* Altura del cuadro azul */
+  background-color: #007bff; /* Color azul */
+  border-radius: 5px; /* Borde redondeado */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
