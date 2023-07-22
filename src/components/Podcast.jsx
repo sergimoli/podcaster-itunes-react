@@ -1,12 +1,12 @@
-import { useParams } from "react-router-dom";
+import styles from "./Podcast.module.css";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { usePodcasts } from "../contexts/PodcasterContext";
 import { useEffect } from "react";
-import PageNav from "./PageNav";
-import EpisodeList from "./EpisodeList";
 
 function Podcast() {
   const { potcastId } = useParams();
   const { getPodcast, currentPodcast, isLoading } = usePodcasts();
+  const navigate = useNavigate();
 
   console.log(potcastId);
 
@@ -14,37 +14,36 @@ function Podcast() {
     getPodcast(potcastId);
   }, [potcastId]);
 
-  // const { id, img, name, author, summary } = currentPodcast;
-  // const { id, title, description, record, duration, date, mp3 } =
-  //   currentPodcast;
-  // console.log(currentPodcast);
-  // console.log(currentPodcast.results);
-
   console.log("currentPodcast", currentPodcast);
 
+  const handleGoBack = () => {
+    if (location.pathname.includes("/episode")) {
+      navigate(-1);
+    }
+  };
+
   return (
-    <div>
-      <PageNav />
-      {/* aquest div hauria de fer que es partís en dos... */}
-      <div>
-        {currentPodcast[0] && (
-          <>
-            <h3>Id: {currentPodcast[0].id}</h3>
-            <h3>
-              <img
-                src={currentPodcast[0].img}
-                alt={currentPodcast[0].name}
-              ></img>
-            </h3>
-            <h3>Author: {currentPodcast[0].author}</h3>
-            <h3>Title: {currentPodcast[0].title}</h3>
-            <h3>Summary: {currentPodcast[0].summary}</h3>
-          </>
-        )}
-      </div>
-      <div>
-        <EpisodeList />
-      </div>
+    <div className={styles.container} onClick={handleGoBack}>
+      {currentPodcast[0] && !isLoading && (
+        <>
+          <div className={styles.img}>
+            <img
+              className={styles.picture}
+              src={currentPodcast[0].img}
+              alt={currentPodcast[0].name}
+            />
+          </div>
+          <div>
+            <p className={styles.name}>{currentPodcast[0].name}</p>
+            <p className={styles.author}>by {currentPodcast[0].author}</p>
+          </div>
+          <div className={styles.separator} />
+          <div>
+            <p className={styles.descriptionlabel}>Description:</p>
+            <p className={styles.description}>{currentPodcast[0].summary}</p>
+          </div>
+        </>
+      )}
     </div>
   );
 }

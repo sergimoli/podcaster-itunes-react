@@ -1,0 +1,39 @@
+/* .container {
+  margin: 20px 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.column {
+  flex-basis: 33.33%;
+  text-align: center; 
+}
+
+
+.ulhori {
+  list-style: none;
+  margin: 0;
+  padding: 8px;
+  background-color: #bbb;
+  display: inline-block;
+}
+
+.ulhori li {
+  float: left;
+  background-color: #777;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #666;
+} */
+
+.ulhori {
+  list-style: none;
+}

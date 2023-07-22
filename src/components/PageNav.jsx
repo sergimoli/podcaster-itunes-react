@@ -8,7 +8,7 @@ function PageNav() {
   return (
     <div className={styles.navContainer}>
       <div className={styles.navLeft}>
-        <Link to="/">
+        <Link to="/" style={{ textDecoration: "none" }}>
           <span className={styles.nav}>Podcaster</span>
         </Link>
       </div>

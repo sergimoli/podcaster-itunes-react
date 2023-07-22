@@ -13,3 +13,7 @@
 .navRight {
   margin-left: 10px; /* Espacio entre el texto y el spinner */
 }
+
+.nav {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

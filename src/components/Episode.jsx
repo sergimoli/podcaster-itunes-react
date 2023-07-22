@@ -1,28 +1,20 @@
 import { useParams } from "react-router-dom";
 import { usePodcasts } from "../contexts/PodcasterContext";
 import { useEffect } from "react";
-import PageNav from "./PageNav";
-import EpisodeRecord from "./EpisodeRecord";
 
 function Episode() {
-  const { episodeid, id } = useParams();
+  const { potcastId } = useParams();
 
-  const { getPodcast, getEpisode, currentEpisode, isLoading, currentPodcast } =
-    usePodcasts();
+  const { getPodcast, isLoading, currentPodcast } = usePodcasts();
 
-  console.log(episodeid);
-
-  useEffect(() => {
-    getEpisode(episodeid);
-  }, [episodeid]);
+  console.log(potcastId);
 
   useEffect(() => {
-    getPodcast(id);
-  }, [id]);
+    getPodcast(potcastId);
+  }, [potcastId]);
 
   return (
     <>
-      <PageNav />
       <div>episodes by id</div>
       <div>
         {currentPodcast[0] && (
@@ -35,13 +27,9 @@ function Episode() {
               ></img>
             </h3>
             <h3>Author: {currentPodcast[0].author}</h3>
-            <h3>Title: {currentPodcast[0].title}</h3>
-            <h3>Summary: {currentPodcast[0].summary}</h3>
+            <h3>Description: {currentPodcast[0].summary}</h3>
           </>
         )}
-      </div>
-      <div>
-        <EpisodeRecord />
       </div>
     </>
   );

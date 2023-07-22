@@ -1,65 +1,16 @@
 .container {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end; /* Alinear los componentes a la derecha */
+  justify-content: flex-end;
 }
 
-.resultsSearchContainer {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 20px; /* Espacio entre Results/SearchPodcasts y PodcastItems */
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap; /* Envolver los elementos para mostrar en filas */
-  justify-content: space-between; /* Espacio entre los elementos */
-  width: 100%;
-}
-
-/* Ajustamos el ancho de los elementos para mostrar 4 por fila */
-/* 25% para 4 elementos por fila */
-/* Puedes ajustar el ancho según el espacio disponible y tus preferencias */
-.li {
-  width: 25%;
-  padding: 10px;
-  box-sizing: border-box;
-  /* Evita que el contenido exceda el ancho del elemento */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Estilos para los componentes Results y SearchPodcasts */
-/* Puedes ajustar según tus necesidades */
 .results {
-  color: #fff;
-  font-size: 18px;
-  background-color: #007bff;
-  padding: 10px;
-  border-radius: 5px;
+  margin-right: 20px;
 }
 
-.searchContainer {
+.ul {
   display: flex;
-  align-items: center;
-  background-color: #fff;
-  border: 1px solid #007bff;
-  border-radius: 5px;
-  padding: 5px 10px;
-}
-
-.searchInput {
-  border: none;
-  outline: none;
-  flex: 1;
-  margin-left: 5px; /* Espacio entre el icono y el input */
-}
-
-.searchIcon {
-  color: #007bff;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 5px;
+  list-style: none;
 }

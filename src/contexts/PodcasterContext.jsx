@@ -120,7 +120,7 @@ function PodcastProvider({ children }) {
           console.log("data from the API...");
 
           const res = await fetch(
-            `${BASE_URL}/us/rss/toppodcasts/limit=7/genre=1310/json`
+            `${BASE_URL}/us/rss/toppodcasts/limit=100/genre=1310/json`
           );
           const data = await res.json();
           await data.feed.entry.forEach((element) => {

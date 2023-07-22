@@ -6,8 +6,8 @@ function SearchPodcasts() {
 
   return (
     <>
-      {/* <i className={`fas fa-search ${styles.searchIcon}`}></i> */}
       <input
+        className={styles.input}
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         placeholder="Filter podcasts..."

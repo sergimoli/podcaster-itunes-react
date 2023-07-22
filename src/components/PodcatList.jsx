@@ -11,8 +11,8 @@ function PodcatList() {
   if (!podcasts.length && isLoading) return <h1>no podcasts found...</h1>;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.resultsSearchContainer}>
+    <>
+      <div className={styles.container}>
         <div className={styles.results}>
           <Results />
         </div>
@@ -20,14 +20,15 @@ function PodcatList() {
           <SearchPodcasts />
         </div>
       </div>
+
       <div>
-        <ul>
+        <ul className={styles.ul}>
           {podcasts.map((podcast) => (
             <PodcastItem podcast={podcast} key={podcast.id} />
           ))}
         </ul>
       </div>
-    </div>
+    </>
   );
 }
 

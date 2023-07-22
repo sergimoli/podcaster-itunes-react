@@ -6,19 +6,21 @@ import PodcatList from "./components/PodcatList";
 import Episode from "./components/Episode";
 import PageNotFound from "./pages/PageNotFound";
 import { useEffect } from "react";
+import PodcastDetail from "./components/PodcastDetail";
+import EpisodeDetail from "./components/EpisodeDetail";
 
 function App() {
   return (
     <PodcastProvider>
       <BrowserRouter>
-        {/* a fer! els podcast list/podcas/episode haurien d'estar englobats en el principal. */}
         <Routes>
           <Route index element={<HomePage />} />
-          {/* <Route index element={<Navigate replace to="podcast" />} /> */}
-          {/* <Route path="podcast" element={<PodcatList />} /> */}
 
-          <Route path="/podcast/:potcastId" element={<Podcast />} />
-          <Route path="podcast/:id/episode/:episodeid" element={<Episode />} />
+          <Route path="/podcast/:potcastId" element={<PodcastDetail />} />
+          <Route
+            path="podcast/:potcastId/episode/:episodeid"
+            element={<EpisodeDetail />}
+          />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

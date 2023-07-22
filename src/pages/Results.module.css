@@ -7,3 +7,9 @@
   align-items: center;
   justify-content: center;
 }
+
+.result {
+  color: white;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}

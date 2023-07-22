@@ -6,8 +6,15 @@ function EpisodeRecord() {
   const { episodeid } = useParams();
   const { getEpisode, currentEpisode, isLoading } = usePodcasts();
 
+  // useEffect(() => {
+  //   getEpisode(episodeid);
+  // }, [episodeid]);
+
   useEffect(() => {
-    getEpisode(episodeid);
+    async function GetIt() {
+      await getEpisode(episodeid);
+    }
+    GetIt();
   }, [episodeid]);
 
   console.log("id is:", episodeid);
@@ -18,16 +25,28 @@ function EpisodeRecord() {
   // console.log("currentEpisode[0].record is:", currentEpisode[0].record);
 
   return (
-    <div>
+    <div className={styles.container}>
       {currentEpisode[0] && (
         <>
-          <h1>{currentEpisode[0].title}</h1>
-          <h2>{currentEpisode[0].record}</h2>
-          <p>Descripción del episodio</p>
-          <audio controls>
-            <source src={currentEpisode[0].record} type="audio/mpeg" />
-            Your browser does not support the audio player.
-          </audio>
+          <div className={styles.divrecord}>
+            <p className={styles.title}>{currentEpisode[0].title}</p>
+          </div>
+
+          <div>
+            <p className={styles.description}>
+              {currentEpisode[0].description}
+            </p>
+          </div>
+
+          <div>
+            {currentEpisode[0].record}
+            {currentEpisode[0].record && (
+              <audio controls className={styles.audio}>
+                <source src={currentEpisode[0].record} type="audio/mpeg" />
+                Your browser does not support the audio player.
+              </audio>
+            )}
+          </div>
         </>
       )}
     </div>

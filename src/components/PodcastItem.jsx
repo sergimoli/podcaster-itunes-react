@@ -7,13 +7,12 @@ function PodcastItem({ podcast }) {
 
   return (
     <>
-      <li className={styles.li}>
+      <li key={podcast.id} className={styles.li}>
         <Link to={`/podcast/${id}`} className={styles.link}>
-          <h3>Id: {id}</h3>
-          <img src={img} alt={name}></img>
-          <h3>Name: {name}</h3>
-          <h3>Author: {author}</h3>
-          {/* <h3>Summary: {summary}</h3> */}
+          {/* <h3>Id: {id}</h3> */}
+          <img className={styles.img} src={img} alt={name}></img>
+          <p className={styles.name}>{name}</p>
+          <p className={styles.author}>{author}</p>
         </Link>
       </li>
     </>

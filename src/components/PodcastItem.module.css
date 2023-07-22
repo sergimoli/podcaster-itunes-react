@@ -5,6 +5,10 @@
   border: 1px solid #ddd; /* Borde gris para separar los elementos */
   border-radius: 5px;
   background-color: #f9f9f9; /* Color de fondo gris claro */
+  padding: 10px;
+  text-decoration: none;
+  width: 200px;
+  height: 300px;
 }
 
 .link {
@@ -12,6 +16,27 @@
   color: #333; /* Color del texto */
 }
 
-h3 {
+/* h3 {
   margin: 5px 0;
+} */
+
+.li {
+  margin: 5px;
+  text-decoration: none;
+}
+
+.img {
+  border-radius: 50%; /* Hace que la imagen sea redondeada */
+  width: 200px; /* Tamaño deseado para la imagen */
+  height: 200px; /* Asegura que la imagen sea cuadrada y tenga la misma altura */
+  object-fit: cover; /* Ajusta la imagen para llenar el cuadro manteniendo la proporción */
+}
+
+.author {
+  font-style: italic; /* Aplica cursiva a los elementos con clase "author" */
+}
+
+.name {
+  margin: 5px 0;
+  font-weight: bold; /* Aplica negrita a los h3 */
 }
