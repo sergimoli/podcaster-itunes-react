@@ -2,7 +2,6 @@
   margin: 20px;
   border: 1px solid #ccc;
   padding: 10px;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
 .headerRow {
@@ -13,20 +12,17 @@
   border-bottom: 1px solid #ccc;
 }
 
-.title {
-  flex-basis: 70%;
+.name {
+  flex-basis: 40%;
   text-align: left;
-  color: rgb(24, 84, 116);
 }
 
-.date {
-  flex-basis: 20%;
+.description {
+  flex-basis: 40%;
   text-align: left;
-  color: rgb(2, 1, 0);
 }
 
 .duration {
-  flex-basis: 10%;
-  text-align: center;
-  color: rgb(2, 1, 0);
+  flex-basis: 20%;
+  text-align: left;
 }

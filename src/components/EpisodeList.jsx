@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { usePodcasts } from "../contexts/PodcasterContext";
 import { useEffect } from "react";
 import EpisodeItem from "./EpisodeItem";
+import ChildComponent from "./childComponent";
 
 function EpisodeList() {
   const { potcastId } = useParams();
@@ -20,24 +21,17 @@ function EpisodeList() {
   console.log("episodes in List:", episodes);
   // console.log("trackcount", trackCount);
 
-  const episodesData = [
-    { id: 1, title: "Episodio 1", date: "2023-07-01", duration: "30:00" },
-    { id: 2, title: "Episodio 2", date: "2023-07-08", duration: "25:30" },
-    { id: 3, title: "Episodio 3", date: "2023-07-15", duration: "22:45" },
-  ];
-
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <div>Title</div>
-        <div>Date</div>
-        <div>Duration</div>
+      <div className={styles.headerRow}>
+        <div className={styles.title}>Title</div>
+        <div className={styles.date}>Description</div>
+        <div className={styles.duration}>Duration</div>
       </div>
-      <ul className={styles.ulhori}>
-        {episodes.map((episode) => (
-          <EpisodeItem episode={episode} key={episode.id} />
-        ))}
-      </ul>
+      {/* Usamos map para crear una lista de elementos en fila */}
+      {episodes.map((episode, index) => (
+        <EpisodeItem episode={episode} key={episode.id} index={index} />
+      ))}
     </div>
   );
 }

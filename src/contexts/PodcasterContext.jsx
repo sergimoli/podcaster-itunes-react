@@ -215,7 +215,7 @@ function PodcastProvider({ children }) {
       !localStorage.getItem(podcastkey) ||
       isOutdated(JSON.parse(localStorage.getItem(podcastkey)).date)
     ) {
-      const url = `https://itunes.apple.com/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=3`;
+      const url = `https://itunes.apple.com/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=20`;
       try {
         const res = await fetch(
           `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`

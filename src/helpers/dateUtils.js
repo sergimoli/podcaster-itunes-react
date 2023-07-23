@@ -5,7 +5,16 @@ export function convertToHoursMinutesSeconds(milliseconds) {
   const minutes = Math.floor(remainingSeconds / 60);
   const seconds = remainingSeconds % 60;
 
-  return { hours, minutes, seconds };
+  // return { hours, minutes, seconds };
+  if (hours > 0) {
+    return `${formatTwoDigits(hours)}:${formatTwoDigits(
+      minutes
+    )}:${formatTwoDigits(seconds)}`;
+  } else if (minutes > 0) {
+    return `${formatTwoDigits(minutes)}:${formatTwoDigits(seconds)}`;
+  } else {
+    return `00:${formatTwoDigits(seconds)}`;
+  }
 }
 
 export function formatDate(dateString) {
@@ -26,4 +35,8 @@ export function isOutdated(date) {
   const oneDay = 24 * 60 * 60 * 1000;
   const now = Date.now();
   return now - date > oneDay;
+}
+
+function formatTwoDigits(number) {
+  return number < 10 ? `0${number}` : number;
 }

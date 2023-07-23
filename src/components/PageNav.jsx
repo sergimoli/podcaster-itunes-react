@@ -13,8 +13,8 @@ function PageNav() {
         </Link>
       </div>
       <div className={styles.navRight}>
-        {/* {isLoading && <Spinner />} */}
-        <Spinner />
+        {isLoading && <Spinner />}
+        {/* <Spinner /> */}
       </div>
     </div>
   );

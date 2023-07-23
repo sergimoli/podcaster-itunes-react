@@ -1,16 +1,14 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { PodcastProvider } from "./contexts/PodcasterContext";
 import HomePage from "./pages/HomePage";
-import Podcast from "./components/Podcast";
-import PodcatList from "./components/PodcatList";
-import Episode from "./components/Episode";
 import PageNotFound from "./pages/PageNotFound";
-import { useEffect } from "react";
 import PodcastDetail from "./components/PodcastDetail";
 import EpisodeDetail from "./components/EpisodeDetail";
+import ParentComponent from "./components/ParentComponent";
 
 function App() {
   return (
+    // <ParentComponent />
     <PodcastProvider>
       <BrowserRouter>
         <Routes>

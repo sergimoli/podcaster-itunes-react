@@ -2,8 +2,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #beb8ba; /* Color de fondo azul */
+  background-color: #fffeff; /* Color de fondo azul */
   padding: 10px 20px; /* Ajusta el espaciado según tus necesidades */
+  height: 50px;
 }
 
 .navLeft {
@@ -16,4 +17,6 @@
 
 .nav {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  /* color: rgb(42, 4, 141); */
+  font-weight: 800;
 }
