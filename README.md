@@ -9,6 +9,7 @@ About the App
 Screenshots
 Technologies
 Setup
+Run app
 
 ### About the app:
 This is a small but funny app to listen to musical podcasts.
@@ -30,4 +31,12 @@ Installed:
 ### Setup
 Download or clone the repository
 run npm install
+
+### Run app
+#### Dev mode
+run npm run dev
+#### Prod mode
+run npm run build
+npx serve dist
+
 
