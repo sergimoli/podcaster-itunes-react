@@ -6,10 +6,6 @@ function EpisodeRecord() {
   const { episodeid } = useParams();
   const { getEpisode, currentEpisode, isLoading } = usePodcasts();
 
-  // useEffect(() => {
-  //   getEpisode(episodeid);
-  // }, [episodeid]);
-
   useEffect(() => {
     async function GetIt() {
       await getEpisode(episodeid);
@@ -20,13 +16,9 @@ function EpisodeRecord() {
   console.log("id is:", episodeid);
   console.log("currentEpisode is", currentEpisode);
 
-  //   <source src={currentEpisode[0].record} type="audio/mpeg" />
-
-  // console.log("currentEpisode[0].record is:", currentEpisode[0].record);
-
   return (
     <div className={styles.container}>
-      {currentEpisode[0] && (
+      {currentEpisode[0] && !isLoading && (
         <>
           <div className={styles.divrecord}>
             <p className={styles.title}>{currentEpisode[0].title}</p>
@@ -39,7 +31,6 @@ function EpisodeRecord() {
           </div>
 
           <div>
-            {currentEpisode[0].record}
             {currentEpisode[0].record && (
               <audio controls className={styles.audio}>
                 <source src={currentEpisode[0].record} type="audio/mpeg" />

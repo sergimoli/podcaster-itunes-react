@@ -9,7 +9,6 @@ function PodcastItem({ podcast }) {
     <>
       <li key={podcast.id} className={styles.li}>
         <Link to={`/podcast/${id}`} className={styles.link}>
-          {/* <h3>Id: {id}</h3> */}
           <img className={styles.img} src={img} alt={name}></img>
           <p className={styles.name}>{name}</p>
           <p className={styles.author}>{author}</p>

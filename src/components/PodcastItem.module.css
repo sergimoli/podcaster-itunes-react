@@ -1,42 +1,36 @@
-/* PodcastItem.module.css */
-
 .li {
   text-align: center;
-  border: 1px solid #ddd; /* Borde gris para separar los elementos */
+  border: 1px solid #ddd;
   border-radius: 5px;
-  background-color: #f9f9f9; /* Color de fondo gris claro */
+  background-color: #f9f9f9;
   padding: 10px;
   text-decoration: none;
   width: 200px;
   height: 300px;
+  overflow: hidden;
 }
 
 .link {
   text-decoration: none;
-  color: #333; /* Color del texto */
+  color: #333;
 }
-
-/* h3 {
-  margin: 5px 0;
-} */
-
 .li {
   margin: 5px;
   text-decoration: none;
 }
 
 .img {
-  border-radius: 50%; /* Hace que la imagen sea redondeada */
-  width: 200px; /* Tamaño deseado para la imagen */
-  height: 200px; /* Asegura que la imagen sea cuadrada y tenga la misma altura */
-  object-fit: cover; /* Ajusta la imagen para llenar el cuadro manteniendo la proporción */
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
 }
 
 .author {
-  font-style: italic; /* Aplica cursiva a los elementos con clase "author" */
+  font-style: italic;
 }
 
 .name {
   margin: 5px 0;
-  font-weight: bold; /* Aplica negrita a los h3 */
+  font-weight: bold;
 }

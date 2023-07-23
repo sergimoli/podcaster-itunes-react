@@ -15,7 +15,7 @@ function HeaderEpisodesNum() {
 
   return (
     <div className={styles.container}>
-      <p className={styles.title}>Episodes: {trackCount}</p>
+      {!isLoading && <p className={styles.title}>Episodes: {trackCount}</p>}
     </div>
   );
 }

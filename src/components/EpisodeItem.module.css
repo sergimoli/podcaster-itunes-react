@@ -3,7 +3,10 @@
   justify-content: space-between;
   padding: 5px 0;
   /* border-bottom: 1px solid #ccc; */
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  height: 30px;
+  align-items: center;
 }
 
 .title {
@@ -29,5 +32,5 @@
 }
 
 .blueBackground {
-  background-color: rgb(239, 242, 244);
+  background-color: rgb(226, 234, 237);
 }

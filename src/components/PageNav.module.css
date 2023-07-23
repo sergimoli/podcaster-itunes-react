@@ -17,6 +17,8 @@
 
 .nav {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  /* color: rgb(42, 4, 141); */
   font-weight: 800;
+  color: rgb(86, 138, 201);
+  font-size: x-large;
+  font-weight: bold;
 }

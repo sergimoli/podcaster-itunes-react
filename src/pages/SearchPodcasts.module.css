@@ -2,5 +2,12 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   /* Otros estilos que desees aplicar al input */
   margin-right: 10px;
-  height: 25px;
+  height: 30px;
+  background-color: #f2f2f2; /* Gris claro para el fondo del cuadro de entrada */
+  border: 1px solid #ccc; /* Borde gris claro */
+  padding-left: 10px; /* Separación del texto respecto al borde izquierdo */
+}
+
+::placeholder {
+  color: #b3b0b0; /* Gris claro para el texto "Filter podcasts..." */
 }

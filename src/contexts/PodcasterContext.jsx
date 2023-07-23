@@ -194,7 +194,7 @@ function PodcastProvider({ children }) {
     console.log("episodes found in getEpisodes:", episodes);
 
     dispatch({ type: "loading" });
-    const filteredData = episodes.filter(
+    const filteredData = await episodes.filter(
       (item) => item.id.toString() === id.toString()
     );
     console.log("filteredDataEpisodes", filteredData);

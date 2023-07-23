@@ -6,9 +6,6 @@ import PodcastItem from "./PodcastItem";
 
 function PodcatList() {
   const { podcasts, isLoading } = usePodcasts();
-  console.log("podcasts", podcasts);
-
-  if (!podcasts.length && isLoading) return <h1>no podcasts found...</h1>;
 
   return (
     <>
@@ -20,14 +17,17 @@ function PodcatList() {
           <SearchPodcasts />
         </div>
       </div>
-
-      <div>
-        <ul className={styles.ul}>
-          {podcasts.map((podcast) => (
-            <PodcastItem podcast={podcast} key={podcast.id} />
-          ))}
-        </ul>
-      </div>
+      {!isLoading && podcasts.length === 0 ? (
+        <h1>no podcasts found...</h1>
+      ) : (
+        <div>
+          <ul className={styles.ul}>
+            {podcasts.map((podcast) => (
+              <PodcastItem podcast={podcast} key={podcast.id} />
+            ))}
+          </ul>
+        </div>
+      )}
     </>
   );
 }

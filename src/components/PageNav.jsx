@@ -12,10 +12,7 @@ function PageNav() {
           <span className={styles.nav}>Podcaster</span>
         </Link>
       </div>
-      <div className={styles.navRight}>
-        {isLoading && <Spinner />}
-        {/* <Spinner /> */}
-      </div>
+      <div className={styles.navRight}>{isLoading && <Spinner />}</div>
     </div>
   );
 }

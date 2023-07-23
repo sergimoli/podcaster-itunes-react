@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { usePodcasts } from "../contexts/PodcasterContext";
 import { useEffect } from "react";
 import EpisodeItem from "./EpisodeItem";
-import ChildComponent from "./childComponent";
 
 function EpisodeList() {
   const { potcastId } = useParams();
@@ -28,10 +27,10 @@ function EpisodeList() {
         <div className={styles.date}>Description</div>
         <div className={styles.duration}>Duration</div>
       </div>
-      {/* Usamos map para crear una lista de elementos en fila */}
-      {episodes.map((episode, index) => (
-        <EpisodeItem episode={episode} key={episode.id} index={index} />
-      ))}
+      {!isLoading &&
+        episodes.map((episode, index) => (
+          <EpisodeItem episode={episode} key={episode.id} index={index} />
+        ))}
     </div>
   );
 }
