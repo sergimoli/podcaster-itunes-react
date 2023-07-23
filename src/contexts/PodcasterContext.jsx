@@ -1,3 +1,4 @@
+import DOMPurify from "dompurify";
 import {
   createContext,
   useContext,
@@ -11,7 +12,6 @@ const BASE_URL = "https://itunes.apple.com/";
 const CORS_PROXY = "https://api.allorigins.win/get?url=";
 
 //this will be used for localstorage.
-//No hauria d'estar aquí, posar-ho on toca...
 const allPodcastKey = "allpodcasts";
 
 const currentDate = new Date().getTime();
@@ -29,8 +29,8 @@ const inititalState = {
 };
 
 function reducer(state, action) {
-  console.log(action);
-  console.log("action.payload", action.payload);
+  // console.log(action);
+  // console.log("action.payload", action.payload);
   switch (action.type) {
     case "loading":
       return {
@@ -115,9 +115,7 @@ function PodcastProvider({ children }) {
         isOutdated(JSON.parse(localStorage.getItem(allPodcastKey)).date)
       ) {
         try {
-          //Recordem de posar-ho a 100 de nou...
-
-          console.log("data from the API...");
+          // console.log("data from the API...");
 
           const res = await fetch(
             `${BASE_URL}/us/rss/toppodcasts/limit=100/genre=1310/json`
@@ -130,7 +128,7 @@ function PodcastProvider({ children }) {
               name: element["im:name"].label,
               author: element["im:artist"].label,
               summary: element.summary
-                ? element.summary.label
+                ? DOMPurify.sanitize(element.summary.label)
                 : "No summary info",
             };
             podcasts.push(podcast2);
@@ -156,7 +154,7 @@ function PodcastProvider({ children }) {
 
   async function saveDataToLocalStorage(localStorageName, storage, trackCount) {
     try {
-      console.log("save data to localstorage", localStorageName, storage);
+      // console.log("save data to localstorage", localStorageName, storage);
 
       localStorage.removeItem(localStorageName); //we force to delete it.
       let dataToStorage = {
@@ -173,11 +171,11 @@ function PodcastProvider({ children }) {
     }
   }
   async function getDataFromLocalStorage(localStorageName, dispatchAction) {
-    console.log(
-      "data get from localstorage!",
-      localStorageName,
-      dispatchAction
-    );
+    // console.log(
+    //   "data get from localstorage!",
+    //   localStorageName,
+    //   dispatchAction
+    // );
     const getData = await JSON.parse(localStorage.getItem(localStorageName))
       .value;
     dispatch({ type: dispatchAction, payload: getData });
@@ -186,30 +184,29 @@ function PodcastProvider({ children }) {
   async function getPodcast(id) {
     dispatch({ type: "loading" });
     const filteredData = podcasts.filter((item) => item.id === id);
-    console.log("filteredDataPodcasts", filteredData);
+    // console.log("filteredDataPodcasts", filteredData);
     dispatch({ type: "podcast/loaded", payload: filteredData });
   }
 
   async function getEpisode(id) {
-    console.log("episodes found in getEpisodes:", episodes);
+    // console.log("episodes found in getEpisodes:", episodes);
 
     dispatch({ type: "loading" });
     const filteredData = await episodes.filter(
       (item) => item.id.toString() === id.toString()
     );
-    console.log("filteredDataEpisodes", filteredData);
+    // console.log("filteredDataEpisodes", filteredData);
     dispatch({ type: "episode/loaded", payload: filteredData });
   }
 
   async function getEpisodes(id) {
-    console.log("id", id);
+    // console.log("id", id);
 
     const podcastkey = "podcast" + id;
 
     dispatch({ type: "loading" });
 
     const podcastId = id.toString();
-    //const podcastId = "1535809341";
 
     if (
       !localStorage.getItem(podcastkey) ||
@@ -224,7 +221,7 @@ function PodcastProvider({ children }) {
         const data = await res.json();
         let trackCount = 0;
         const parsedResult_datacontents = await JSON.parse(data.contents);
-        console.log("parsedResult_datacontents", parsedResult_datacontents);
+        // console.log("parsedResult_datacontents", parsedResult_datacontents);
 
         episodes.splice(0, episodes.length); //we force to delete everything...
         await parsedResult_datacontents.results.forEach((element, index) => {
@@ -241,11 +238,10 @@ function PodcastProvider({ children }) {
           } else {
             trackCount = element.trackCount;
           }
-          // saveDataToLocalStorage(podcastkey, episodes);
         });
         await saveDataToLocalStorage(podcastkey, episodes, trackCount);
-        console.log("episodes saved in localstorage", episodes);
-        console.log("trackount is: ", trackCount);
+        // console.log("episodes saved in localstorage", episodes);
+        // console.log("trackount is: ", trackCount);
 
         dispatch({ type: "episodes/loaded", payload: episodes });
       } catch {
@@ -262,12 +258,12 @@ function PodcastProvider({ children }) {
 
   async function getTrackCount(id) {
     dispatch({ type: "loading" });
-    console.log("aquest es el id:", id);
+
     try {
       const podcastkey = "podcast" + id;
       const trackCount = await JSON.parse(localStorage.getItem(podcastkey))
         .trackCount;
-      console.log("entro a veure quants tracks tinc, collons", trackCount);
+      // console.log("entro a veure quants tracks tinc, collons", trackCount);
       dispatch({ type: "episodes/trackcount", payload: trackCount });
     } catch {
       dispatch({

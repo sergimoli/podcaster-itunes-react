@@ -8,13 +8,13 @@ function Podcast() {
   const { getPodcast, currentPodcast, isLoading } = usePodcasts();
   const navigate = useNavigate();
 
-  console.log(potcastId);
+  // console.log(potcastId);
 
   useEffect(() => {
     getPodcast(potcastId);
   }, [potcastId]);
 
-  console.log("currentPodcast", currentPodcast);
+  // console.log("currentPodcast", currentPodcast);
 
   const handleGoBack = () => {
     if (location.pathname.includes("/episode")) {

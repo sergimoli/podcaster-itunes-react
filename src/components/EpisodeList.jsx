@@ -17,7 +17,7 @@ function EpisodeList() {
     GetIt();
   }, [potcastId]);
 
-  console.log("episodes in List:", episodes);
+  // console.log("episodes in List:", episodes);
   // console.log("trackcount", trackCount);
 
   return (

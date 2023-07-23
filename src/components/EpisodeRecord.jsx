@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import styles from "./EpisodeRecord.module.css";
 import { usePodcasts } from "../contexts/PodcasterContext";
 import { useParams } from "react-router-dom";
+import ReactHtmlParser from "react-html-parser";
+
 function EpisodeRecord() {
   const { episodeid } = useParams();
   const { getEpisode, currentEpisode, isLoading } = usePodcasts();
@@ -13,8 +15,8 @@ function EpisodeRecord() {
     GetIt();
   }, [episodeid]);
 
-  console.log("id is:", episodeid);
-  console.log("currentEpisode is", currentEpisode);
+  // console.log("id is:", episodeid);
+  // console.log("currentEpisode is", currentEpisode);
 
   return (
     <div className={styles.container}>
@@ -25,8 +27,9 @@ function EpisodeRecord() {
           </div>
 
           <div>
+            {/* renders the html with react html parser */}
             <p className={styles.description}>
-              {currentEpisode[0].description}
+              {ReactHtmlParser(currentEpisode[0].description)}
             </p>
           </div>
 
