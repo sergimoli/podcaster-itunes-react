@@ -2,17 +2,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fffeff; /* Color de fondo azul */
-  padding: 10px 20px; /* Ajusta el espaciado según tus necesidades */
+  background-color: #fffeff;
+  padding: 10px 20px;
   height: 50px;
 }
 
 .navLeft {
-  flex: 1; /* Para ocupar el espacio disponible y alinear a la izquierda */
+  flex: 1;
 }
 
 .navRight {
-  margin-left: 10px; /* Espacio entre el texto y el spinner */
+  margin-left: 10px;
 }
 
 .nav {

@@ -1,5 +1,5 @@
 import EpisodeList from "./EpisodeList";
-import styles from "./EpisodesView.module.css";
+
 import HeaderEpisodesNum from "./HeaderEpisodesNum";
 function EpisodesView() {
   return (

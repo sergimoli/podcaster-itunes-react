@@ -1,7 +1,4 @@
 import styles from "./PodcastDetail.module.css";
-import Episode from "./Episode";
-import EpisodeList from "./EpisodeList";
-import EpisodeRecord from "./EpisodeRecord";
 import EpisodesView from "./EpisodesView";
 import PageNav from "./PageNav";
 import Podcast from "./Podcast";

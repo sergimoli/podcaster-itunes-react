@@ -1,8 +1,8 @@
 .resultSquare {
-  width: 45px; /* Ancho del cuadro azul */
-  height: 35px; /* Altura del cuadro azul */
-  background-color: #007bff; /* Color azul */
-  border-radius: 5px; /* Borde redondeado */
+  width: 45px;
+  height: 35px;
+  background-color: #007bff;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;

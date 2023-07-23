@@ -4,7 +4,6 @@ import HomePage from "./pages/HomePage";
 import PageNotFound from "./pages/PageNotFound";
 import PodcastDetail from "./components/PodcastDetail";
 import EpisodeDetail from "./components/EpisodeDetail";
-import ParentComponent from "./components/ParentComponent";
 
 function App() {
   return (
