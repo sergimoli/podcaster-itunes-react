@@ -1,3 +1,4 @@
+import React from "react";
 import DOMPurify from "dompurify";
 import {
   createContext,
@@ -305,4 +306,4 @@ function usePodcasts() {
   return context;
 }
 
-export { PodcastProvider, usePodcasts };
+export { PodcasterContext, PodcastProvider, usePodcasts };
