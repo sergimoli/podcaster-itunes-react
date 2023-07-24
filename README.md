@@ -10,6 +10,7 @@ Screenshots
 Technologies
 Setup
 Run app
+What's next?
 
 ### About the app:
 This is a small but funny app to listen to musical podcasts.
@@ -39,4 +40,7 @@ run npm run dev
 run npm run build
 npx serve dist
 
+
+#### What's next?
+Do more tests to have all coverage possible for this app.
 
